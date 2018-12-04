@@ -7,3 +7,15 @@
 button {
   margin: 0 15px;
 }
+
+.panel:after,.panel:before{content:"";display:table;clear:both}
+
+.panel {  
+  padding:0.01em 16px;
+  margin-top:16px;
+  margin-bottom:16px;
+}
+
+.card {
+  box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}

@@ -1,14 +1,19 @@
 import React, { Component } from 'react';
 import Form from './components/Form';
-import Note from './components/Note';
+// import Note from './components/Note';
 import * as $ from 'axios';
 import './app.css';
+import Kunote from './components/Kunote';
 
 class App extends Component {
 
   state = {
     notesList: [],
-    newNote: '',
+    kuNotesList: [],
+    newTo: '',
+    newFrom: '',
+    newTitle: '',
+    newBody: '',
     noteUpdate: '',
     isUpdating: false,
     updateId: ''
@@ -16,8 +21,8 @@ class App extends Component {
 
   update = (event) => {
     event.preventDefault();
-    this.setState({isUpdating: false})
-    $.put(`/api/notes/${this.state.updateId}`, {content: this.state.noteUpdate})
+    this.setState({ isUpdating: false })
+    $.put(`/api/notes/${this.state.updateId}`, { content: this.state.noteUpdate })
       .then(() => {
         this.getNotes();
       })
@@ -25,9 +30,10 @@ class App extends Component {
 
   handleClick = (event) => {
     event.preventDefault();
-    $.post('/api/notes', { content: this.state.newNote })
+    console.log("handleClick");
+    $.post('/api/kudos', { title: this.state.newTitle, body: this.state.newBody, to: this.state.newTo, from: this.state.newFrom })
       .then(() => {
-        this.getNotes();
+        this.getKuNotes();
       })
   }
 
@@ -37,9 +43,16 @@ class App extends Component {
         this.setState({ notesList: result.data })
       })
   }
+  getKuNotes = () => {
+    $.get('/api/kudos')
+      .then((result) => {
+        this.setState({ kuNotesList: result.data })
+      })
+  }
 
   componentDidMount() {
     this.getNotes();
+    this.getKuNotes();
   }
 
   deleteHandler = (event) => {
@@ -49,8 +62,17 @@ class App extends Component {
       })
   }
 
+  // handleChange = (event) => {
+  //   this.setState({ newTitle: event.target.value })
+  // }
+
+
   handleChange = (event) => {
-    this.setState({ newNote: event.target.value })
+    this.setState({ [event.target.name]: event.target.value })
+  }
+
+  handleBodyChange = (event) => {
+    this.setState({ newBody: event.target.value })
   }
 
   handleUpdate = event => {
@@ -64,22 +86,52 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <Form val={this.state.newNote} changeHandler={this.handleChange} clickHandler={this.handleClick} heading='Add'/>
-        {this.state.isUpdating
-          ? <Form val={this.state.noteUpdate} changeHandler={this.handleUpdate} clickHandler={this.update} heading='Update'/>
-          : this.state.notesList.map(note => (
-            <Note  
-              key={note._id}
-              id={note._id} 
-              content={note.content} 
-              onUpdate={this.showUpdate} 
-              onDelete={this.deleteHandler}
-            />))
-        }
-        
+        <Form
+          inputTitle={this.state.newTitle}
+          inputBody={this.state.newBody}
+          inputTo={this.state.newTo}
+          inputFrom={this.state.newFrom}
+          changeHandler={this.handleChange}
+          clickHandler={this.handleClick}
+          heading='Kudos'
+        />
+
+        {this.state.kuNotesList.map(note => (
+          <Kunote
+            key={note._id}
+            id={note._id}
+            toProp={note.to}
+            fromProp={note.from}
+            titleProp={note.title}
+            bodyProp={note.body}
+            onUpdate={this.showUpdate}
+            onDelete={this.deleteHandler}
+          />
+        ))}
+
+
+
+
+
+
       </div>
     );
   }
 }
+
+
+
+
+
+
+// console.log(this.state.notesList)
+//           this.state.kuNotesList.map(kunote => (
+//             <Kunote  
+//               key={kunote._id}
+//               id={kunote._id} 
+//               title={kunote.title}               
+//             />)
+
+
 
 export default App;
