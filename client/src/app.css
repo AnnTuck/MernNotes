@@ -1,3 +1,5 @@
+body,h1,h2,h3,h4,h5,h6 {font-family: "Lato", Arial, sans-serif;}
+
 .note {
   padding: 10px;
   border: 1px solid #333;
@@ -18,4 +20,24 @@ button {
 
 .card {
   box-shadow:0 2px 5px 0 rgba(0,0,0,0.16),0 2px 10px 0 rgba(0,0,0,0.12);
+}
+
+
+.noteInput {  
+  padding: 10px 10px;   
+  margin: 2px;
+  border: 1px solid #ccc;
+  border-radius: 4px; 
+}
+
+
+.noteBtn {
+  margin-bottom: 8px;
+  padding: 8px;
+  border-radius: 4px; 
+}
+
+.container {  
+  margin-left: 15%;
+  margin-right: 15%;
 }

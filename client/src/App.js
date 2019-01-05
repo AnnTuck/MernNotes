@@ -34,6 +34,7 @@ class App extends Component {
     $.post('/api/kudos', { title: this.state.newTitle, body: this.state.newBody, to: this.state.newTo, from: this.state.newFrom })
       .then(() => {
         this.getKuNotes();
+        document.getElementById("addNote").reset();
       })
   }
 
@@ -85,15 +86,15 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
+      <div className="App container">
         <Form
-          inputTitle={this.state.newTitle}
-          inputBody={this.state.newBody}
           inputTo={this.state.newTo}
           inputFrom={this.state.newFrom}
+          inputTitle={this.state.newTitle}
+          inputBody={this.state.newBody}          
           changeHandler={this.handleChange}
           clickHandler={this.handleClick}
-          heading='Kudos'
+          heading='Send a Note'
         />
 
         {this.state.kuNotesList.map(note => (
