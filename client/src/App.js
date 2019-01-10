@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import Form from './components/Form';
-// import Note from './components/Note';
 import * as $ from 'axios';
 import './app.css';
 import Kunote from './components/Kunote';
@@ -63,10 +62,6 @@ class App extends Component {
       })
   }
 
-  // handleChange = (event) => {
-  //   this.setState({ newTitle: event.target.value })
-  // }
-
 
   handleChange = (event) => {
     this.setState({ [event.target.name]: event.target.value })
@@ -119,19 +114,6 @@ class App extends Component {
     );
   }
 }
-
-
-
-
-
-
-// console.log(this.state.notesList)
-//           this.state.kuNotesList.map(kunote => (
-//             <Kunote  
-//               key={kunote._id}
-//               id={kunote._id} 
-//               title={kunote.title}               
-//             />)
 
 
 

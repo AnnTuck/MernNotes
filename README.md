@@ -1,5 +1,5 @@
 # MernNotes
-This is a simple note sending app written by Ann Tuck using the MERN.
+This is a simple note sending app written by Ann Tuck using the MERN stack.
 
 Give it a try and add your note to the inbox of inane messages.
 
